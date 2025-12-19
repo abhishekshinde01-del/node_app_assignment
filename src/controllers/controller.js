@@ -7,7 +7,6 @@ exports.createEmploye = async (req, res) => {
 };
 
 exports.getAllEmploye = async (req, res) => {
-  console.log("🔥 getAllEmployeWithPagination HIT");
   const employee = await Employee.findAll();
   res.json(employee);
 };
@@ -18,17 +17,27 @@ exports.getEmployeByID = async (req, res) => {
 };
 
 exports.updateEmployeByID = async (req, res) => {
-  await Employee.update(req.body, {
+  const [updatedRows] = await Employee.update(req.body, {
     where: { id: req.params.id },
   });
+
+  if (updatedRows === 0) {
+    return res.status(404).json({ message: "Employee not found" });
+  }
+
   res.json({ message: "Employee updated Successfully" });
 };
 
 exports.deleteEmployeByID = async (req, res) => {
-  await Employee.destroy({
+  const deletedRows = await Employee.destroy({
     where: { id: req.params.id },
   });
-  res.json({ message: "Employee Deletd Successfully" });
+
+  if (deletedRows === 0) {
+    return res.status(404).json({ message: "Employee not found" });
+  }
+
+  res.json({ message: "Employee Deleted Successfully" });
 };
 
 // Employee
@@ -66,7 +75,7 @@ exports.getProfileByEmployeeId = async (req, res) => {
     where: { employeeId: req.params.employeeId },
   });
   if (!profile) {
-    return res.status(404).json({ message: "Profile not found" });
+    return res.status(400).json({ message: "Profile not found" });
   }
   res.json(profile);
 };
@@ -101,8 +110,7 @@ exports.getAllEmployeWithPagination = async (req, res) => {
   }
 };
 
-
-// for projects 
+// for projects
 
 exports.createProject = async (req, res) => {
   const project = await Project.create({
@@ -125,15 +133,50 @@ exports.assignProjectToEmployee = async (req, res) => {
   res.json({ message: "Project assigned to employee" });
 };
 
+
+// Handle error Pars here
 exports.getEmployeeWithProjects = async (req, res) => {
-  const employee = await Employee.findByPk(req.params.id, {
-    include: Project,
-  });
+  try {
+    const employee = await Employee.findByPk(req.params.id, {
+      include: Project,
+    });    
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
 
-  if (!employee) {
-    return res.status(404).json({ message: "Employee not found" });
+    res.json(employee);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  res.json(employee);
 };
 
+
+// created bulkEmploye api and used promise here
+
+exports.createMultipleEmployees = async (req, res) => {
+  const t = await sequelize.transaction();
+  try {
+    const employees = await Promise.all(
+      req.body.employees.map(emp =>
+        Employee.create(emp, { transaction: t })
+      )
+    );
+    await t.commit();
+    res.status(201).json(employees);
+  } catch (err) {
+    await t.rollback();
+    res.status(400).json({ error: err.message });
+  }
+};
+
+exports.getEmployeeSafely = async (req, res) => {
+  try {
+    const employee = await Employee.findByPk(req.params.id);
+    if (!employee) {
+      return res.status(404).json({ message: "Employee not found" });
+    }
+    res.json(employee);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

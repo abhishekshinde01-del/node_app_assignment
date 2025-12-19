@@ -3,6 +3,10 @@ const route = express.Router();
 const controller = require("../controllers/controller");
 
 
+// for Employe create in bulk
+route.get("/employeeSafely/:id", controller.getEmployeeSafely);
+route.post("/batchEmployees", controller.createMultipleEmployees);
+
 // For Employee*/
 route.post("/employeProfile", controller.createEmployeProfile);
 route.get("/profile/:employeeId", controller.getProfileByEmployeeId);
