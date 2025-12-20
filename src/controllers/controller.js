@@ -2,8 +2,8 @@ const { Employee, Profile, Project } = require("../models/model");
 const sequelize = require("../config/db"); // 👈 REQUIRED
 
 exports.createEmploye = async (req, res) => {
-  const employee = await Employee.create(req.body);
-  res.status(201).json(employee);
+  await Employee.create(req.body);
+  res.status(201).json({ message: "Employee Created Succe" });
 };
 
 exports.getAllEmploye = async (req, res) => {
@@ -62,10 +62,11 @@ exports.createEmployeProfile = async (req, res) => {
       { transaction }
     );
     await transaction.commit();
-    res.status(201).json({ employee, profile });
+    // res.status(201).json({ employee, profile });
+    res.json({ message: "Employee with profile created Successfully" });
   } catch (error) {
     await transaction.rollback();
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: "something went wrong" });
   }
 };
 
@@ -106,63 +107,64 @@ exports.getAllEmployeWithPagination = async (req, res) => {
       data: rows,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "something went wrong" });
   }
 };
 
 // for projects
-
 exports.createProject = async (req, res) => {
-  const project = await Project.create({
-    title: req.body.title,
-  });
-  res.status(201).json(project);
+  try {
+    const project = await Project.create({
+      title: req.body.title,
+    });
+    res.status(201).json(project);
+    res.json({ message: "Porject created Successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "something went wrong" });
+  }
 };
 
 exports.assignProjectToEmployee = async (req, res) => {
-  const { employeeId, projectId } = req.body;
+  try {
+    const { employeeId, projectId } = req.body;
 
-  const employee = await Employee.findByPk(employeeId);
-  const project = await Project.findByPk(projectId);
+    const employee = await Employee.findByPk(employeeId);
+    const project = await Project.findByPk(projectId);
 
-  if (!employee || !project) {
-    return res.status(404).json({ message: "Employee or Project not found" });
+    if (!employee || !project) {
+      return res.status(404).json({ message: "Employee or Project not found" });
+    }
+    await employee.addProject(project);
+    res.json({ message: "Project assigned to employee" });
+  } catch (error) {
+    res.status(500).json({ error: "something went wrong" });
   }
-
-  await employee.addProject(project);
-  res.json({ message: "Project assigned to employee" });
 };
-
 
 // Handle error Pars here
 exports.getEmployeeWithProjects = async (req, res) => {
   try {
     const employee = await Employee.findByPk(req.params.id, {
       include: Project,
-    });    
+    });
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
-
     res.json(employee);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "something went wrong" });
   }
 };
 
-
 // created bulkEmploye api and used promise here
-
 exports.createMultipleEmployees = async (req, res) => {
   const t = await sequelize.transaction();
   try {
-    const employees = await Promise.all(
-      req.body.employees.map(emp =>
-        Employee.create(emp, { transaction: t })
-      )
+    await Promise.all(
+      req.body.employees.map((emp) => Employee.create(emp, { transaction: t }))
     );
     await t.commit();
-    res.status(201).json(employees);
+    res.status(201).json({ message: "Bulk Employee created Successfully" });
   } catch (err) {
     await t.rollback();
     res.status(400).json({ error: err.message });
@@ -177,6 +179,6 @@ exports.getEmployeeSafely = async (req, res) => {
     }
     res.json(employee);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "something went wrong" });
   }
 };
