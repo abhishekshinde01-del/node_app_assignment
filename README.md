@@ -17,3 +17,13 @@ curl -X PUT http://localhost:3000/employe/1 \
 
 # DELETE user
 curl -X DELETE http://localhost:3000/employe/1
+
+
+# Project steps
+
+Step 1 - Run apllication using this command -> node ./src/server.js
+Step 2 - Run this command on chrome so you will get the swagger - http://localhost:3000/api-docs/
+
+
+
+
