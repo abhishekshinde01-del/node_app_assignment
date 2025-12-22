@@ -40,7 +40,7 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD, 
   {
     host: process.env.DB_HOST,
-    port: process.env.PORT, // This must be 23574
+    port: process.env.PORT,
     dialect: 'mysql',
     dialectOptions: {
       ssl: {
