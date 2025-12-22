@@ -10,11 +10,13 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000",
+        url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000',
       },
     ],
   },
    apis: [path.join(__dirname, "routes", "routes.js")],
 };
+
+console.log('options',JSON.stringify(options));
 
 module.exports = swaggerJsdoc(options);
