@@ -12,14 +12,13 @@ beforeAll(async () => {
 describe("Employee API Tests", () => {
   test("Create Employee", async () => {
     const res = await request(app).post("/employe").send({
-      name: "John Doe",
-      email: "john@test.com",
+      name: "Johdn Doe",
+      email: "johdn@test.com",
       username: "john123",
     });
 
     expect(res.statusCode).toBe(201);
-    expect(res.body).toHaveProperty("id");
-    expect(res.body.name).toBe("John Doe");
+    expect(res.body.message).toBe("Employee Created Successfuly");
   });
 
   test("Get All Employees", async () => {
@@ -51,8 +50,7 @@ describe("Employee API Tests", () => {
     });
 
     expect(res.statusCode).toBe(201);
-    expect(res.body.employee).toBeDefined();
-    expect(res.body.profile.bio).toBe("Software Engineer");
+     expect(res.body.message).toBe("Employee with profile created Successfully");
   });
 
   test("Create Employee with Profile (Transaction) with Error", async () => {
@@ -87,9 +85,7 @@ describe("Employee API Tests", () => {
       });
 
     expect(res.statusCode).toBe(201);
-    expect(res.body.length).toBe(2);
-    expect(res.body[0]).toHaveProperty("id");
-    expect(res.body[1].username).toBe("bulk2");
+    expect(res.body.message).toBe("Bulk Employee created Successfully");
 
     const count = await Employee.count();
     expect(count).toBe(5);
@@ -121,7 +117,7 @@ describe("Employee API Tests", () => {
     const res = await request(app).get(`/employe/employeeSafely/1`);
     expect(res.statusCode).toBe(200);
     expect(res.body.id).toBe(1);
-    expect(res.body.name).toBe("John Doe");
+    expect(res.body.name).toBe("Johdn Doe");
   });
 
   test("Return 404 if employee not found (safe)", async () => {

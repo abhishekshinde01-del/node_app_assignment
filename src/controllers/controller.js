@@ -3,7 +3,7 @@ const sequelize = require("../config/db"); // 👈 REQUIRED
 
 exports.createEmploye = async (req, res) => {
   await Employee.create(req.body);
-  res.status(201).json({ message: "Employee Created Succe" });
+  res.status(201).json({ message: "Employee Created Successfuly" });
 };
 
 exports.getAllEmploye = async (req, res) => {
@@ -62,8 +62,7 @@ exports.createEmployeProfile = async (req, res) => {
       { transaction }
     );
     await transaction.commit();
-    // res.status(201).json({ employee, profile });
-    res.json({ message: "Employee with profile created Successfully" });
+    res.status(201).json({ message: "Employee with profile created Successfully" });
   } catch (error) {
     await transaction.rollback();
     res.status(400).json({ error: "something went wrong" });

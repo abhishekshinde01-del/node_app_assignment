@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.2% </span>
+                <span class="strong">91.46% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/77</span>
+                <span class='fraction'>75/82</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.2% </span>
+                <span class="strong">91.46% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>71/77</span>
+                <span class='fraction'>75/82</span>
             </div>
         
             
@@ -245,7 +245,8 @@
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
 <a name='L182'></a><a href='#L182'>182</a>
-<a name='L183'></a><a href='#L183'>183</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -358,11 +359,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -370,15 +368,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,16 +375,31 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -404,9 +408,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -431,8 +433,8 @@
 const sequelize = require("../config/db"); // 👈 REQUIRED
 &nbsp;
 exports.createEmploye = async (req, res) =&gt; {
-  const employee = await Employee.create(req.body);
-  res.status(201).json(employee);
+  await Employee.create(req.body);
+  res.status(201).json({ message: "Employee Created Successfuly" });
 };
 &nbsp;
 exports.getAllEmploye = async (req, res) =&gt; {
@@ -491,10 +493,10 @@ exports.createEmployeProfile = async (req, res) =&gt; {
       { transaction }
     );
     await transaction.commit();
-    res.status(201).json({ employee, profile });
+    res.status(201).json({ message: "Employee with profile created Successfully" });
   } catch (error) {
     await transaction.rollback();
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: "something went wrong" });
   }
 };
 &nbsp;
@@ -535,63 +537,64 @@ exports.getAllEmployeWithPagination = async (req, res) =&gt; {
       data: rows,
     });
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: error.message });</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: "something went wrong" });</span>
   }
 };
 &nbsp;
 // for projects
-&nbsp;
 exports.createProject = async (req, res) =&gt; {
-  const project = await Project.create({
-    title: req.body.title,
-  });
-  res.status(201).json(project);
+  try {
+    const project = await Project.create({
+      title: req.body.title,
+    });
+    res.status(201).json(project);
+    res.json({ message: "Porject created Successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "something went wrong" });
+  }
 };
 &nbsp;
 exports.assignProjectToEmployee = async (req, res) =&gt; {
-  const { employeeId, projectId } = req.body;
+  try {
+    const { employeeId, projectId } = req.body;
 &nbsp;
-  const employee = await Employee.findByPk(employeeId);
-  const project = await Project.findByPk(projectId);
+    const employee = await Employee.findByPk(employeeId);
+    const project = await Project.findByPk(projectId);
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!employee || !project) {
-<span class="cstat-no" title="statement not covered" >    return res.status(404).json({ message: "Employee or Project not found" });</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (!employee || !project) {
+<span class="cstat-no" title="statement not covered" >      return res.status(404).json({ message: "Employee or Project not found" });</span>
+    }
+    await employee.addProject(project);
+    res.json({ message: "Project assigned to employee" });
+  } catch (error) {
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: "something went wrong" });</span>
   }
-&nbsp;
-  await employee.addProject(project);
-  res.json({ message: "Project assigned to employee" });
 };
-&nbsp;
 &nbsp;
 // Handle error Pars here
 exports.getEmployeeWithProjects = async (req, res) =&gt; {
   try {
     const employee = await Employee.findByPk(req.params.id, {
       include: Project,
-    });    
+    });
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!employee) {
 <span class="cstat-no" title="statement not covered" >      return res.status(404).json({ message: "Employee not found" });</span>
     }
-&nbsp;
     res.json(employee);
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: error.message });</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: "something went wrong" });</span>
   }
 };
 &nbsp;
-&nbsp;
 // created bulkEmploye api and used promise here
-&nbsp;
 exports.createMultipleEmployees = async (req, res) =&gt; {
   const t = await sequelize.transaction();
   try {
-    const employees = await Promise.all(
-      req.body.employees.map(emp =&gt;
-        Employee.create(emp, { transaction: t })
-      )
+    await Promise.all(
+      req.body.employees.map((emp) =&gt; Employee.create(emp, { transaction: t }))
     );
     await t.commit();
-    res.status(201).json(employees);
+    res.status(201).json({ message: "Bulk Employee created Successfully" });
   } catch (err) {
     await t.rollback();
     res.status(400).json({ error: err.message });
@@ -606,7 +609,7 @@ exports.getEmployeeSafely = async (req, res) =&gt; {
     }
     res.json(employee);
   } catch (error) {
-<span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: error.message });</span>
+<span class="cstat-no" title="statement not covered" >    res.status(500).json({ error: "something went wrong" });</span>
   }
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -616,7 +619,7 @@ exports.getEmployeeSafely = async (req, res) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-12-19T10:53:50.590Z
+                at 2025-12-22T05:26:45.834Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
