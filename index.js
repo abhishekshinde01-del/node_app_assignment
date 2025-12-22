@@ -1,19 +1,9 @@
-"use strict"
+const app = require('./src/app');
+const sequelize = require('./src/config/db');
 
-const express = require('express')
-
-const app = express()
-const port = 3000;
-
-
-app.get("/", (req, res) => {
-    res.send('Hello world')
+sequelize.sync().then(() => {
+  console.log('Database connected');
+  app.listen(23570, () => {
+    console.log(`Server running at http://mysql-6a5fb7-node-assignment-db.k.aivencloud.com:${23570}`);
+  });
 });
-
-app.get("/user" ,(req, res) =>{
-    res.send('user found')
-})
-
-app.listen(port, ()=>{
-    console.log(`example  at http://localhost:${port}`); 
-})
